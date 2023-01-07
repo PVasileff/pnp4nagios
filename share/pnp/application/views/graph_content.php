@@ -88,8 +88,10 @@ foreach($this->data->STRUCT as $key=>$value){
 	# treated like a url fragment when zooming
 	$gid = array();
 	parse_str(ltrim($this->url, '?'), $gid);
-	$gid = htmlentities("?host=".urlencode($gid["host"])."&srv=".urlencode($gid["srv"]));
-	
+	#$gid = htmlentities("?host=".urlencode($gid["host"])."&srv=".urlencode($gid["srv"]));
+	#https://github.com/lingej/pnp4nagios/pull/186/commits/7e3214aa79380fba53e3f126b8f31bdb2a155867
+	$srv = isset($gid['srv']) ? $gid['srv'] : '';
+	$gid = htmlentities("?host=".urlencode($gid["host"])."&srv=".urlencode($srv));
 	echo "<div start=".$value['TIMERANGE']['start']." end=".$value['TIMERANGE']['end']." style=\"width:".$value['GRAPH_WIDTH']."px; height:".$value['GRAPH_HEIGHT']."px; position:absolute; top:33px\" class=\"graph\" id=\"".$gid."\" ></div>";
 	
 	// build the URI which renders the dynamic graph image
